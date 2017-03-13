@@ -1,0 +1,50 @@
+{
+  "name": "readdir-sorted",
+  "version": "0.1.0",
+  "description": "Like `fs.readdir`, but sorts the result based on `String#localeCompare()`",
+  "repository": "shinnn/readdir-sorted",
+  "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+  "scripts": {
+    "pretest": "eslint --fix --format=codeframe index.js test/test.js",
+    "test": "istanbul cover --print=both test/test.js -- --throw-deprecation"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "directory",
+    "readdir",
+    "file",
+    "files",
+    "fs",
+    "list",
+    "enumerate",
+    "array",
+    "sort",
+    "sorted",
+    "order",
+    "locale",
+    "compare",
+    "alphabetical",
+    "a-to-z",
+    "promise",
+    "async",
+    "asynchronous"
+  ],
+  "dependencies": {
+    "graceful-fs": "^4.1.11",
+    "inspect-with-kind": "^1.0.0",
+    "is-plain-obj": "^1.1.0"
+  },
+  "devDependencies": {
+    "@shinnn/eslint-config-node": "^3.0.0",
+    "eslint": "^3.17.1",
+    "istanbul": "^0.4.5",
+    "junk": "^2.1.0",
+    "tape": "^4.6.3"
+  },
+  "eslintConfig": {
+    "extends": "@shinnn/node"
+  }
+}
