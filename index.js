@@ -4,7 +4,7 @@
 */
 'use strict';
 
-const inspect = require('util').inspect;
+const {inspect} = require('util');
 
 const inspectWithKind = require('inspect-with-kind');
 const isPlainObj = require('is-plain-obj');
@@ -12,8 +12,18 @@ const readdir = require('graceful-fs').readdir;
 
 const PATH_ERROR = 'Expected a directory path (string)';
 
-module.exports = function readdirSorted(dir, options) {
+module.exports = function readdirSorted(...args) {
   return new Promise((resolve, reject) => {
+    const argLen = args.length;
+
+    if (argLen !== 1 && argLen !== 2) {
+      throw new TypeError(`Expected 1 or 2 arguments (path: String[, options: Object]), but got ${
+        argLen === 0 ? 'no' : argLen
+      } arguments.`);
+    }
+
+    const [dir, options] = args;
+
     if (typeof dir !== 'string') {
       throw new TypeError(`${PATH_ERROR}, but got ${inspectWithKind(dir)}.`);
     }
@@ -22,7 +32,7 @@ module.exports = function readdirSorted(dir, options) {
       throw new Error(`${PATH_ERROR.replace(' (string)', '')}, but got '' (empty string).`);
     }
 
-    if (options !== undefined) {
+    if (argLen === 2) {
       if (!isPlainObj(options)) {
         throw new TypeError(`The second argument of readdir-sorted must be a plain object, but got ${
           inspectWithKind(options)
@@ -72,12 +82,12 @@ module.exports = function readdirSorted(dir, options) {
           inspectWithKind(options.caseFirst)
         }.`);
       }
-    } else {
-      options = {};
     }
 
     const sortOptions = Object.assign({usage: 'sort'}, options);
-    const sort = (a, b) => a.localeCompare(b, options.locales, sortOptions);
+    const sort = argLen === 1 ?
+                 (a, b) => a.localeCompare(b, undefined, sortOptions) :
+                 (a, b) => a.localeCompare(b, options.locales, sortOptions);
 
     // validate options
     sort('');

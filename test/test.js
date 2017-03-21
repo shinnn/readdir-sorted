@@ -7,7 +7,7 @@ const readdirSorted = require('..');
 const test = require('tape');
 
 test('readdirSorted()', t => {
-  t.plan(17);
+  t.plan(18);
 
   const fixtureDir = join(__dirname, 'fixtures');
 
@@ -42,8 +42,16 @@ test('readdirSorted()', t => {
   readdirSorted().catch(err => {
     t.strictEqual(
       err.toString(),
-      'TypeError: Expected a directory path (string), but got undefined.',
+      'TypeError: Expected 1 or 2 arguments (path: String[, options: Object]), but got no arguments.',
       'should fail when it takes no arguments.'
+    );
+  });
+
+  readdirSorted('a', 'b', 'c').catch(err => {
+    t.strictEqual(
+      err.toString(),
+      'TypeError: Expected 1 or 2 arguments (path: String[, options: Object]), but got 3 arguments.',
+      'should fail when it takes too many arguments.'
     );
   });
 
