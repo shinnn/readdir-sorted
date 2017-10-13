@@ -34,15 +34,15 @@
   ],
   "dependencies": {
     "graceful-fs": "^4.1.11",
-    "inspect-with-kind": "^1.0.0",
+    "inspect-with-kind": "^1.0.2",
     "is-plain-obj": "^1.1.0"
   },
   "devDependencies": {
-    "@shinnn/eslint-config-node": "^3.0.0",
-    "eslint": "^3.18.0",
+    "@shinnn/eslint-config-node": "^4.0.2",
+    "eslint": "^4.8.0",
     "istanbul": "^0.4.5",
     "junk": "^2.1.0",
-    "tape": "^4.6.3"
+    "tape": "^4.8.0"
   },
   "eslintConfig": {
     "extends": "@shinnn/node"

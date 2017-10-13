@@ -58,11 +58,9 @@ module.exports = function readdirSorted(...args) {
       }
 
       if (options.sensitivity !== undefined && typeof options.sensitivity !== 'string') {
-        throw new TypeError(
-          `Expected \`sensitivity\` option to be one of 'base' or 'accent', 'case' and 'variant' but got ${
-            inspectWithKind(options.sensitivity)
-          }.`
-        );
+        throw new TypeError(`Expected \`sensitivity\` option to be one of 'base' or 'accent', 'case' and 'variant' but got ${
+          inspectWithKind(options.sensitivity)
+        }.`);
       }
 
       if (options.ignorePunctuation !== undefined && typeof options.ignorePunctuation !== 'boolean') {
@@ -86,8 +84,8 @@ module.exports = function readdirSorted(...args) {
 
     const sortOptions = Object.assign({usage: 'sort'}, options);
     const sort = argLen === 1 ?
-                 (a, b) => a.localeCompare(b, undefined, sortOptions) :
-                 (a, b) => a.localeCompare(b, options.locales, sortOptions);
+      (a, b) => a.localeCompare(b, undefined, sortOptions) :
+      (a, b) => a.localeCompare(b, options.locales, sortOptions);
 
     // validate options
     sort('');
