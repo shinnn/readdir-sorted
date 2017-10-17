@@ -1,7 +1,3 @@
-/*!
- * readdir-sorted | MIT (c) Shinnosuke Watanabe
- * https://github.com/shinnn/readdir-sorted
-*/
 'use strict';
 
 const {inspect} = require('util');

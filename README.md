@@ -1,6 +1,6 @@
 # readdir-sorted
 
-[![NPM version](https://img.shields.io/npm/v/readdir-sorted.svg)](https://www.npmjs.com/package/readdir-sorted)
+[![npm version](https://img.shields.io/npm/v/readdir-sorted.svg)](https://www.npmjs.com/package/readdir-sorted)
 [![Build Status](https://travis-ci.org/shinnn/readdir-sorted.svg?branch=master)](https://travis-ci.org/shinnn/readdir-sorted)
 [![Build status](https://ci.appveyor.com/api/projects/status/k0xmvwm4bc1qn4nl/branch/master?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/readdir-sorted/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/readdir-sorted.svg)](https://coveralls.io/github/shinnn/readdir-sorted?branch=master)
@@ -70,6 +70,4 @@ readdirSorted('/path/to/dir', {
 
 ## License
 
-Copyright (c) 2017 [Shinnosuke Watanabe](https://github.com/shinnn)
-
-Licensed under [the MIT License](./LICENSE).
+[ISC License](./LICENSE) © 2017 Shinnosuke Watanabe
