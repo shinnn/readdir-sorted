@@ -183,7 +183,7 @@ test('readdirSorted()', async t => {
       err.toString(),
       'TypeError: Expected `caseFirst` option to be one of ' +
       '\'upper\', \'lower\', or \'false\', but got <Buffer 61>.',
-      'should fail when `numeric` option is not a boolean.'
+      'should fail when `caseFirst` option is not valid.'
     );
   }
 

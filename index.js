@@ -1,12 +1,13 @@
 'use strict';
 
-const {inspect} = require('util');
+const {inspect, promisify} = require('util');
 
 const inspectWithKind = require('inspect-with-kind');
 const isPlainObj = require('is-plain-obj');
 const {readdir} = require('graceful-fs');
 
 const PATH_ERROR = 'Expected a directory path (string)';
+const promisifiedReaddir = promisify(readdir);
 
 module.exports = async function readdirSorted(...args) {
   const argLen = args.length;
@@ -85,14 +86,5 @@ module.exports = async function readdirSorted(...args) {
   // validate options in advance
   sort('');
 
-  return (await new Promise((resolve, reject) => {
-    readdir(dir, (err, paths) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      resolve(paths);
-    });
-  })).sort(sort);
+  return (await promisifiedReaddir(dir)).sort(sort);
 };
