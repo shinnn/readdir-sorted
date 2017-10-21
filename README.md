@@ -10,8 +10,8 @@ Like [`fs.readdir`](https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_ca
 ```javascript
 const readdirSorted = require('readdir-sorted');
 
-readdirSorted('.').then(paths => {
-  paths; /* => [
+(async () => {
+  await readdirSorted('.'); /* => [
     '.editorconfig',
     '.gitattributes',
     '.gitignore',
@@ -22,12 +22,12 @@ readdirSorted('.').then(paths => {
     'README.md',
     'test'
   ] */
-});
+})();
 ```
 
 ## Installation
 
-[Use npm.](https://docs.npmjs.com/cli/install)
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
 
 ```
 npm install readdir-sorted
@@ -41,9 +41,9 @@ const readdirSorted = require('readdir-sorted');
 
 ### readdirSorted(*path* [, *options*])
 
-*path*: `String` (directory path)  
+*path*: `string` `Buffer` [`URL`](https://nodejs.org/api/url.html#url_class_url) (directory path)  
 *options*: `Object`  
-Return: `Promise<Array>`
+Return: `Promise<Array<string>>`
 
 Similar to Node.js built-in `fs.readdir`, but different in the following points:
 
@@ -56,16 +56,16 @@ Similar to Node.js built-in `fs.readdir`, but different in the following points:
 `locale` property will be passed to the second argument of `String#localeCompare()`, and the rest will be used in the third argument.
 
 ```javascript
-readdirSorted('/path/to/dir').then(paths => {
-  paths; /* => ['10', '2', 'ä', 'z'] */
-});
+(async () => {
+  await readdirSorted('/path/to/dir');
+  //=> ['10', '2', 'ä', 'z']
 
-readdirSorted('/path/to/dir', {
-  locale: 'sv',
-  numeric: true
-}).then(paths => {
-  paths; /* => ['2', '10', 'z', 'ä'] */
-});
+  await readdirSorted('/path/to/dir', {
+    locale: 'sv',
+    numeric: true
+  });
+  //=> ['2', '10', 'z', 'ä']
+})();
 ```
 
 ## License

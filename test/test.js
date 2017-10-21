@@ -1,7 +1,9 @@
 'use strict';
 
 const {join} = require('path');
+const {URL} = require('url');
 
+const fileUrl = require('file-url');
 const junk = require('junk');
 const readdirSorted = require('..');
 const test = require('tape');
@@ -16,7 +18,7 @@ test('readdirSorted()', async t => {
   );
 
   t.deepEqual(
-    (await readdirSorted(fixtureDir, {
+    (await readdirSorted(Buffer.from(fixtureDir), {
       locales: ['en'],
       ignorePunctuation: true,
       numeric: true
@@ -26,7 +28,7 @@ test('readdirSorted()', async t => {
   );
 
   try {
-    await readdirSorted('none');
+    await readdirSorted(new URL(fileUrl('none')));
   } catch ({code}) {
     t.equal(
       code,
@@ -40,7 +42,7 @@ test('readdirSorted()', async t => {
   } catch (err) {
     t.equal(
       err.toString(),
-      'TypeError: Expected 1 or 2 arguments (path: String[, options: Object]), but got no arguments.',
+      'TypeError: Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got no arguments.',
       'should fail when it takes no arguments.'
     );
   }
@@ -50,7 +52,7 @@ test('readdirSorted()', async t => {
   } catch (err) {
     t.equal(
       err.toString(),
-      'TypeError: Expected 1 or 2 arguments (path: String[, options: Object]), but got 3 arguments.',
+      'TypeError: Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got 3 arguments.',
       'should fail when it takes too many arguments.'
     );
   }
@@ -60,18 +62,8 @@ test('readdirSorted()', async t => {
   } catch (err) {
     t.equal(
       err.toString(),
-      'TypeError: Expected a directory path (string), but got /!/ (regexp).',
+      'TypeError: path must be a string or Buffer',
       'should fail when the first parameter takes a non-string value.'
-    );
-  }
-
-  try {
-    await readdirSorted('');
-  } catch (err) {
-    t.equal(
-      err.toString(),
-      'Error: Expected a directory path, but got \'\' (empty string).',
-      'should fail when the first parameter takes an empty string.'
     );
   }
 

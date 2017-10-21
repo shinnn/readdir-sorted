@@ -6,27 +6,18 @@ const inspectWithKind = require('inspect-with-kind');
 const isPlainObj = require('is-plain-obj');
 const {readdir} = require('graceful-fs');
 
-const PATH_ERROR = 'Expected a directory path (string)';
 const promisifiedReaddir = promisify(readdir);
 
 module.exports = async function readdirSorted(...args) {
   const argLen = args.length;
 
   if (argLen !== 1 && argLen !== 2) {
-    throw new TypeError(`Expected 1 or 2 arguments (path: String[, options: Object]), but got ${
+    throw new TypeError(`Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got ${
       argLen === 0 ? 'no' : argLen
     } arguments.`);
   }
 
   const [dir, options] = args;
-
-  if (typeof dir !== 'string') {
-    throw new TypeError(`${PATH_ERROR}, but got ${inspectWithKind(dir)}.`);
-  }
-
-  if (dir.length === 0) {
-    throw new Error(`${PATH_ERROR.replace(' (string)', '')}, but got '' (empty string).`);
-  }
 
   if (argLen === 2) {
     if (!isPlainObj(options)) {

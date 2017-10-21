@@ -40,6 +40,7 @@
   "devDependencies": {
     "@shinnn/eslint-config-node": "^4.0.2",
     "eslint": "^4.9.0",
+    "file-url": "^2.0.2",
     "junk": "^2.1.0",
     "nyc": "^11.2.1",
     "tape": "^4.8.0"
