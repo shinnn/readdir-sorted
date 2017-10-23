@@ -1,6 +1,6 @@
 {
   "name": "readdir-sorted",
-  "version": "2.0.0-2",
+  "version": "2.0.0",
   "description": "Like `fs.readdir`, but sorts the result based on `String#localeCompare()`",
   "repository": "shinnn/readdir-sorted",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
@@ -42,7 +42,7 @@
     "eslint": "^4.9.0",
     "file-url": "^2.0.2",
     "junk": "^2.1.0",
-    "nyc": "^11.2.1",
+    "nyc": "^11.3.0",
     "tape": "^4.8.0"
   },
   "eslintConfig": {
