@@ -6,6 +6,7 @@ const inspectWithKind = require('inspect-with-kind');
 const isPlainObj = require('is-plain-obj');
 const {readdir} = require('graceful-fs');
 
+const PATH_ERROR = 'Expected a valid directory path';
 const promisifiedReaddir = promisify(readdir);
 
 module.exports = async function readdirSorted(...args) {
@@ -18,6 +19,14 @@ module.exports = async function readdirSorted(...args) {
   }
 
   const [dir, options] = args;
+
+  if (dir === '') {
+    throw new Error(`${PATH_ERROR}, but got '' (empty string).`);
+  }
+
+  if (Buffer.isBuffer(dir) && dir.length === 0) {
+    throw new Error(`${PATH_ERROR}, but got an empty Buffer.`);
+  }
 
   if (argLen === 2) {
     if (!isPlainObj(options)) {

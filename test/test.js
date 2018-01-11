@@ -68,6 +68,26 @@ test('readdirSorted()', async t => {
   }
 
   try {
+    await readdirSorted('');
+  } catch (err) {
+    t.equal(
+      err.toString(),
+      'Error: Expected a valid directory path, but got \'\' (empty string).',
+      'should fail when the first parameter takes an empty string.'
+    );
+  }
+
+  try {
+    await readdirSorted(Buffer.alloc(0));
+  } catch (err) {
+    t.equal(
+      err.toString(),
+      'Error: Expected a valid directory path, but got an empty Buffer.',
+      'should fail when the first parameter takes an empty Buffer.'
+    );
+  }
+
+  try {
     await readdirSorted('a', 1);
   } catch (err) {
     t.equal(
