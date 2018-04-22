@@ -1,51 +1,51 @@
 {
-  "name": "readdir-sorted",
-  "version": "2.0.1",
-  "description": "Like `fs.readdir`, but sorts the result based on `String#localeCompare()`",
-  "repository": "shinnn/readdir-sorted",
-  "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
-  "scripts": {
-    "pretest": "eslint --fix --format=codeframe index.js test/test.js",
-    "test": "nyc --reporter=html --reporter=text node test/test.js"
-  },
-  "license": "ISC",
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "directory",
-    "readdir",
-    "file",
-    "files",
-    "fs",
-    "list",
-    "enumerate",
-    "array",
-    "sort",
-    "sorted",
-    "order",
-    "locale",
-    "compare",
-    "alphabetical",
-    "a-to-z",
-    "promise",
-    "async",
-    "asynchronous"
-  ],
-  "dependencies": {
-    "graceful-fs": "^4.1.11",
-    "inspect-with-kind": "^1.0.2",
-    "is-plain-obj": "^1.1.0"
-  },
-  "devDependencies": {
-    "@shinnn/eslint-config-node": "^4.0.2",
-    "eslint": "^4.9.0",
-    "file-url": "^2.0.2",
-    "junk": "^2.1.0",
-    "nyc": "^11.3.0",
-    "tape": "^4.8.0"
-  },
-  "eslintConfig": {
-    "extends": "@shinnn/node"
-  }
+	"name": "readdir-sorted",
+	"version": "2.0.1",
+	"description": "Like `fs.readdir`, but sorts the result based on `String#localeCompare()`",
+	"repository": "shinnn/readdir-sorted",
+	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"scripts": {
+		"pretest": "eslint --fix --format=codeframe index.js test/test.js",
+		"test": "nyc --reporter=html --reporter=text node test/test.js"
+	},
+	"license": "ISC",
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"directory",
+		"readdir",
+		"file",
+		"files",
+		"fs",
+		"list",
+		"enumerate",
+		"array",
+		"sort",
+		"sorted",
+		"order",
+		"locale",
+		"compare",
+		"alphabetical",
+		"a-to-z",
+		"promise",
+		"async",
+		"asynchronous"
+	],
+	"dependencies": {
+		"graceful-fs": "^4.1.11",
+		"inspect-with-kind": "^1.0.4",
+		"is-plain-obj": "^1.1.0"
+	},
+	"devDependencies": {
+		"@shinnn/eslint-config-node": "^5.0.0",
+		"eslint": "^4.19.1",
+		"file-url": "^2.0.2",
+		"junk": "^2.1.0",
+		"nyc": "^11.7.1",
+		"tape": "^4.9.0"
+	},
+	"eslintConfig": {
+		"extends": "@shinnn/node"
+	}
 }
