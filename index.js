@@ -78,7 +78,7 @@ module.exports = async function readdirSorted(...args) {
 		}
 	}
 
-	const sortOptions = Object.assign({usage: 'sort'}, options);
+	const sortOptions = {usage: 'sort', ...options};
 	const sort = argLen === 1 ?
 		(a, b) => a.localeCompare(b, undefined, sortOptions) :
 		(a, b) => a.localeCompare(b, options.locales, sortOptions);
