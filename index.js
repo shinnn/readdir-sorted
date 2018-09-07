@@ -1,10 +1,10 @@
 'use strict';
 
 const {inspect, promisify} = require('util');
+const {readdir} = require('fs');
 
 const inspectWithKind = require('inspect-with-kind');
 const isPlainObj = require('is-plain-obj');
-const {readdir} = require('graceful-fs');
 
 const PATH_ERROR = 'Expected a valid directory path';
 const promisifiedReaddir = promisify(readdir);
@@ -18,7 +18,7 @@ module.exports = async function readdirSorted(...args) {
 		} arguments.`);
 	}
 
-	const [dir, options] = args;
+	const [dir, options = {}] = args;
 
 	if (dir === '') {
 		throw new Error(`${PATH_ERROR}, but got '' (empty string).`);
@@ -79,9 +79,7 @@ module.exports = async function readdirSorted(...args) {
 	}
 
 	const sortOptions = {usage: 'sort', ...options};
-	const sort = argLen === 1 ?
-		(a, b) => a.localeCompare(b, undefined, sortOptions) :
-		(a, b) => a.localeCompare(b, options.locales, sortOptions);
+	const sort = (a, b) => a.localeCompare(b, options.locales, sortOptions);
 
 	// validate options in advance
 	sort('');
