@@ -1,6 +1,6 @@
 'use strict';
 
-const {join} = require('path');
+const {dirname, join} = require('path');
 
 const fileUrl = require('file-url');
 const junk = require('junk');
@@ -16,14 +16,35 @@ test('readdirSorted()', async t => {
 		'should run `readdir` with sorting the result.'
 	);
 
+	const dirents = (await readdirSorted(Buffer.from(fixtureDir), {
+		encoding: 'buffer',
+		withFileTypes: true,
+		locales: ['en'],
+		ignorePunctuation: true,
+		numeric: true
+	})).filter(({name}) => junk.not(name.toString()));
+
 	t.deepEqual(
-		(await readdirSorted(Buffer.from(fixtureDir), {
-			locales: ['en'],
-			ignorePunctuation: true,
-			numeric: true
-		})).filter(junk.not),
-		['2', '10', 'aab', 'a.ac'],
+		dirents,
+		[{name: Buffer.from('2')}, {name: Buffer.from('10')}, {name: Buffer.from('aab')}, {name: Buffer.from('a.ac')}],
 		'should support String#localeCompare() options.'
+	);
+
+	t.equal(
+		dirents[0].isFile(),
+		true,
+		'should support fs.readdir() options.'
+	);
+
+	const base64Names = (await readdirSorted(dirname(__dirname), {
+		encoding: 'base64',
+		withFileTypes: true
+	})).map(({name}) => name);
+
+	t.equal(
+		base64Names.indexOf(Buffer.from('package.json').toString('base64')) - base64Names.indexOf(Buffer.from('package-lock.json').toString('base64')),
+		1,
+		'should sort entries after filenames are encoded.'
 	);
 
 	try {
@@ -58,6 +79,24 @@ test('Argument validation', async t => {
 		(await getError('a', 'b', 'c')).toString(),
 		'TypeError: Expected 1 or 2 arguments (path: <string|Buffer|URL>[, options: <Object>]), but got 3 arguments.',
 		'should fail when it takes too many arguments.'
+	);
+
+	t.equal(
+		(await getError('a', {encoding: new Uint32Array()})).toString(),
+		'TypeError: Expected `encoding` option to be a <string>, but got a non-string value Uint32Array [].',
+		'should fail when `encoding` option takes a non-string value.'
+	);
+
+	t.equal(
+		(await getError('a', {encoding: ''})).toString(),
+		'TypeError: Expected `encoding` option to be an encoding identifier for example \'base64\' and \'buffer\', but got \'\' (empty string).',
+		'should fail when `encoding` option takes an empty string.'
+	);
+
+	t.equal(
+		(await getError('a', {withFileTypes: new Map()})).toString(),
+		'TypeError: Expected `withFileTypes` option to either `true` or `false`, but got a non-boolean value Map {}.',
+		'should fail when `withFileTypes` option takes a non-boolean value.'
 	);
 
 	t.equal(

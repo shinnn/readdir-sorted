@@ -5,7 +5,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/k0xmvwm4bc1qn4nl/branch/master?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/readdir-sorted/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/readdir-sorted.svg)](https://coveralls.io/github/shinnn/readdir-sorted?branch=master)
 
-Like [`fs.readdir`](https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback) but sorts the result based on [`String#localeCompare()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+Like [`fs.promise.readdir()`](https://nodejs.org/api/fs.html#fs_fspromises_readdir_path_options) but sorts the result based on [`String#localeCompare()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
 
 ```javascript
 const readdirSorted = require('readdir-sorted');
@@ -43,15 +43,34 @@ const readdirSorted = require('readdir-sorted');
 
 *path*: `string` `Buffer` [`URL`](https://nodejs.org/api/url.html#url_class_url) (directory path)  
 *options*: `Object`  
-Return: `Promise<Array<string>>`
+Return: `Promise<string[]|Buffer[]|fs.Dirent[]>`
 
-Similar to Node.js built-in `fs.readdir`, but different in the following points:
-
-* Returns a `Promise`
-* Doesn't support `encoding` option
-* The result is sorted based on `String#localeCompare()`
+It returns a result of `fs.promises.readdir()` with sorting entries based on `String#localeCompare()`.
 
 #### Options
+
+#### options.encoding and options.withFileTypes
+
+Both will be passed to `fs.promises.readdir()`.
+
+```javascript
+(async () => {
+  await readdirSorted('example');
+  //=> ['directory', 'file.txt', 'symlink']
+
+  await readdirSorted('example', {
+    encoding: 'base64',
+    withFileTypes: true
+  });
+  /* => [
+    Dirent { name: 'ZGlyZWN0b3J5', [Symbol(type)]: 2 },
+    Dirent { name: 'aW5kZXguanM=', [Symbol(type)]: 1 },
+    Dirent { name: 'c3ltbGluaw==', [Symbol(type)]: 3 }
+  ] */
+})();
+```
+
+#### Other options
 
 `locale` property will be passed to the second argument of `String#localeCompare()`, and the rest will be used in the third argument.
 

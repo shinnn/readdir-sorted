@@ -28,6 +28,18 @@ module.exports = async function readdirSorted(...args) {
 		throw new Error(`${PATH_ERROR}, but got an empty Buffer.`);
 	}
 
+	const {
+		encoding,
+		withFileTypes,
+		locales,
+		localeMatcher,
+		usage,
+		sensitivity,
+		ignorePunctuation,
+		numeric,
+		caseFirst
+	} = options;
+
 	if (argLen === 2) {
 		if (!isPlainObj(options)) {
 			throw new TypeError(`The second argument of readdir-sorted must be a plain object, but got ${
@@ -35,54 +47,91 @@ module.exports = async function readdirSorted(...args) {
 			}.`);
 		}
 
-		if (options.locales !== undefined && typeof options.locales !== 'string' && !Array.isArray(options.locales)) {
+		if (encoding !== undefined) {
+			if (typeof encoding !== 'string') {
+				const error = new TypeError(`Expected \`encoding\` option to be a <string>, but got a non-string value ${
+					inspectWithKind(encoding)
+				}.`);
+				error.code = 'ERR_INVALID_OPT_VALUE_ENCODING';
+
+				throw error;
+			}
+
+			if (encoding.length === 0) {
+				const error = new TypeError('Expected `encoding` option to be an encoding identifier for example \'base64\' and \'buffer\', but got \'\' (empty string).');
+				error.code = 'ERR_INVALID_OPT_VALUE_ENCODING';
+
+				throw error;
+			}
+		}
+
+		if (withFileTypes !== undefined && typeof withFileTypes !== 'boolean') {
+			throw new TypeError(`Expected \`withFileTypes\` option to either \`true\` or \`false\`, but got a non-boolean value ${
+				inspectWithKind(withFileTypes)
+			}.`);
+		}
+
+		if (locales !== undefined && typeof locales !== 'string' && !Array.isArray(locales)) {
 			throw new TypeError(`Expected \`locale\` option to be a string or an array of strings, but got ${
-				inspectWithKind(options.locales)
+				inspectWithKind(locales)
 			}.`);
 		}
 
-		if (options.localeMatcher !== undefined && typeof options.localeMatcher !== 'string') {
+		if (localeMatcher !== undefined && typeof localeMatcher !== 'string') {
 			throw new TypeError(`Expected \`localeMatcher\` option to be either 'lookup' or 'best fit', but got ${
-				inspectWithKind(options.localeMatcher)
+				inspectWithKind(localeMatcher)
 			}.`);
 		}
 
-		if (options.usage !== undefined) {
-			throw new TypeError(`\`usage\` option is not supported, but ${
-				inspect(options.usage)
-			} was provided for it.`);
+		if (usage !== undefined) {
+			throw new TypeError(`\`usage\` option is not supported, but ${inspect(usage)} was provided for it.`);
 		}
 
-		if (options.sensitivity !== undefined && typeof options.sensitivity !== 'string') {
+		if (sensitivity !== undefined && typeof sensitivity !== 'string') {
 			throw new TypeError(`Expected \`sensitivity\` option to be one of 'base' or 'accent', 'case' and 'variant' but got ${
-				inspectWithKind(options.sensitivity)
+				inspectWithKind(sensitivity)
 			}.`);
 		}
 
-		if (options.ignorePunctuation !== undefined && typeof options.ignorePunctuation !== 'boolean') {
+		if (ignorePunctuation !== undefined && typeof ignorePunctuation !== 'boolean') {
 			throw new TypeError(`Expected \`ignorePunctuation\` option to be a Boolean value, but got ${
-				inspectWithKind(options.ignorePunctuation)
+				inspectWithKind(ignorePunctuation)
 			}.`);
 		}
 
-		if (options.numeric !== undefined && typeof options.numeric !== 'boolean') {
+		if (numeric !== undefined && typeof numeric !== 'boolean') {
 			throw new TypeError(`Expected \`numeric\` option to be a Boolean value, but got ${
-				inspectWithKind(options.numeric)
+				inspectWithKind(numeric)
 			}.`);
 		}
 
-		if (options.caseFirst !== undefined && typeof options.caseFirst !== 'string' && options.caseFirst !== false) {
+		if (caseFirst !== undefined && typeof caseFirst !== 'string' && caseFirst !== false) {
 			throw new TypeError(`Expected \`caseFirst\` option to be one of 'upper', 'lower', or 'false', but got ${
-				inspectWithKind(options.caseFirst)
+				inspectWithKind(caseFirst)
 			}.`);
 		}
 	}
 
-	const sortOptions = {usage: 'sort', ...options};
-	const sort = (a, b) => a.localeCompare(b, options.locales, sortOptions);
+	const sortOptions = {
+		usage: 'sort',
+		...options,
+		encoding: undefined,
+		locales: undefined,
+		withFileTypes: undefined
+	};
 
 	// validate options in advance
-	sort('');
+	''.localeCompare('', locales, sortOptions);
 
-	return (await promisifiedReaddir(dir)).sort(sort);
+	const arr = await promisifiedReaddir(dir, {encoding, withFileTypes});
+
+	if (withFileTypes) {
+		if (encoding === 'buffer') {
+			return arr.sort((a, b) => a.name.toString().localeCompare(b.name.toString(), locales, sortOptions));
+		}
+
+		return arr.sort((a, b) => a.name.localeCompare(b.name, locales, sortOptions));
+	}
+
+	return arr.sort((a, b) => a.localeCompare(b, locales, sortOptions));
 };
