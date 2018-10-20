@@ -2,7 +2,6 @@
 
 [![npm version](https://img.shields.io/npm/v/readdir-sorted.svg)](https://www.npmjs.com/package/readdir-sorted)
 [![Build Status](https://travis-ci.org/shinnn/readdir-sorted.svg?branch=master)](https://travis-ci.org/shinnn/readdir-sorted)
-[![Build status](https://ci.appveyor.com/api/projects/status/k0xmvwm4bc1qn4nl/branch/master?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/readdir-sorted/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/readdir-sorted.svg)](https://coveralls.io/github/shinnn/readdir-sorted?branch=master)
 
 Like [`fs.promise.readdir()`](https://nodejs.org/api/fs.html#fs_fspromises_readdir_path_options) but sorts the result based on [`String#localeCompare()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
