@@ -1,8 +1,8 @@
 'use strict';
 
 const {dirname, join} = require('path');
+const {pathToFileURL} = require('url');
 
-const fileUrl = require('file-url');
 const junk = require('junk');
 const readdirSorted = require('..');
 const test = require('tape');
@@ -48,7 +48,7 @@ test('readdirSorted()', async t => {
 	);
 
 	try {
-		await readdirSorted(new URL(fileUrl('none')));
+		await readdirSorted(pathToFileURL(join(__dirname, 'n', 'o', 'n', 'e')));
 	} catch ({code}) {
 		t.equal(
 			code,

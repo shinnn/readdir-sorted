@@ -37,12 +37,11 @@
 		"is-plain-obj": "^1.1.0"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config": "^6.7.0",
-		"eslint": "^5.5.0",
-		"file-url": "^2.0.2",
+		"@shinnn/eslint-config": "^6.7.5",
+		"eslint": "^5.7.0",
 		"junk": "^2.1.0",
-		"nyc": "^13.0.1",
-		"nyc-config-common": "^1.0.0",
+		"nyc": "^13.1.0",
+		"nyc-config-common": "^1.0.1",
 		"tape": "^4.9.1"
 	},
 	"eslintConfig": {
