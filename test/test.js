@@ -1,6 +1,7 @@
 'use strict';
 
 const {dirname, join} = require('path');
+const {hostname} = require('os');
 const {pathToFileURL} = require('url');
 
 const junk = require('junk');
@@ -56,6 +57,16 @@ test('readdirSorted()', async t => {
 			'should fail when it cannot get contents in a given path.'
 		);
 	}
+
+	t.end();
+});
+
+(process.platform === 'win32' ? test : test.skip)('readdirSorted() on Windows', async t => {
+	t.deepEqual(
+		(await readdirSorted(new URL(`file://${hostname()}/${__dirname.replace(/\\/ug, '/').replace(/^([a-z]):/ui, '$1$')}`))).filter(junk.not),
+		['fixtures', 'test.js'],
+		'should support file URL of a UNC path.'
+	);
 
 	t.end();
 });
@@ -162,7 +173,7 @@ test('Argument validation', async t => {
 
 	t.equal(
 		(await getError('a', {sensitivity: '#'})).toString(),
-		'RangeError: Value # out of range for collator options property sensitivity',
+		'RangeError: Value # out of range for Intl.Collator options property sensitivity',
 		'should fail when `sensitivity` option is not valid.'
 	);
 
