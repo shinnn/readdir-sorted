@@ -2,12 +2,12 @@
 	"name": "readdir-sorted",
 	"version": "2.1.0",
 	"description": "Like `fs.promise.readdir()`, but sorts the result based on `String#localeCompare()`",
-	"repository": "shinnn/readdir-sorted",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"repository": "shinnn/readdir-sorted",
 	"license": "ISC",
 	"scripts": {
 		"pretest": "eslint .",
-		"test": "nyc node test/test.js"
+		"test": "coverage test/test.js"
 	},
 	"files": [
 		"index.js"
@@ -34,20 +34,16 @@
 	],
 	"dependencies": {
 		"inspect-with-kind": "^1.0.5",
-		"is-plain-obj": "^1.1.0"
+		"is-plain-obj": "^2.0.0"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config": "^6.7.5",
-		"eslint": "^5.7.0",
-		"junk": "^2.1.0",
-		"nyc": "^13.1.0",
-		"nyc-config-common": "^1.0.1",
+		"@shinnn/eslint-config": "^6.10.2",
+		"coverage": "^0.1.5",
+		"eslint": "^5.16.0",
+		"junk": "^3.1.0",
 		"tape": "^4.9.1"
 	},
 	"eslintConfig": {
 		"extends": "@shinnn"
-	},
-	"nyc": {
-		"extends": "nyc-config-common"
 	}
 }

@@ -1,8 +1,8 @@
 # readdir-sorted
 
 [![npm version](https://img.shields.io/npm/v/readdir-sorted.svg)](https://www.npmjs.com/package/readdir-sorted)
-[![Build Status](https://travis-ci.org/shinnn/readdir-sorted.svg?branch=master)](https://travis-ci.org/shinnn/readdir-sorted)
-[![Coverage Status](https://img.shields.io/coveralls/shinnn/readdir-sorted.svg)](https://coveralls.io/github/shinnn/readdir-sorted?branch=master)
+[![Build Status](https://travis-ci.com/shinnn/readdir-sorted.svg?branch=master)](https://travis-ci.com/shinnn/readdir-sorted)
+[![codecov](https://codecov.io/gh/shinnn/readdir-sorted/branch/master/graph/badge.svg)](https://codecov.io/gh/shinnn/readdir-sorted)
 
 Like [`fs.promise.readdir()`](https://nodejs.org/api/fs.html#fs_fspromises_readdir_path_options) but sorts the result based on [`String#localeCompare()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
 
@@ -26,7 +26,7 @@ const readdirSorted = require('readdir-sorted');
 
 ## Installation
 
-[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/about-npm/).
 
 ```
 npm install readdir-sorted
@@ -40,7 +40,7 @@ const readdirSorted = require('readdir-sorted');
 
 ### readdirSorted(*path* [, *options*])
 
-*path*: `string` `Buffer` [`URL`](https://nodejs.org/api/url.html#url_class_url) (directory path)  
+*path*: `string | Buffer | URL` (directory path)  
 *options*: `Object`  
 Return: `Promise<string[]|Buffer[]|fs.Dirent[]>`
 
@@ -88,4 +88,4 @@ Both will be passed to `fs.promises.readdir()`.
 
 ## License
 
-[ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2019 Shinnosuke Watanabe

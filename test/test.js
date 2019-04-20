@@ -63,7 +63,7 @@ test('readdirSorted()', async t => {
 
 (process.platform === 'win32' ? test : test.skip)('readdirSorted() on Windows', async t => {
 	t.deepEqual(
-		(await readdirSorted(new URL(`file://${hostname()}/${__dirname.replace(/\\/ug, '/').replace(/^([a-z]):/ui, '$1$')}`))).filter(junk.not),
+		(await readdirSorted(new URL(`file://${hostname()}/${__dirname.replace(/\\/ug, '/').replace(/(?<=^[a-z]):/ui, '$')}`))).filter(junk.not),
 		['fixtures', 'test.js'],
 		'should support file URL of a UNC path.'
 	);

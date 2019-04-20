@@ -1,9 +1,8 @@
 if: branch !~ ^v\d
 language: node_js
 node_js: node
-matrix:
+jobs:
   include:
   - dist: xenial
-    after_success: node_modules/.bin/nyc report | npx coveralls
   - os: windows
     script: node test\\test.js
