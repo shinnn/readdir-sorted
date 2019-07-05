@@ -88,4 +88,4 @@ Both will be passed to `fs.promises.readdir()`.
 
 ## License
 
-[ISC License](./LICENSE) © 2017 - 2019 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2019 Watanabe Shinnosuke

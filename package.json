@@ -2,7 +2,7 @@
 	"name": "readdir-sorted",
 	"version": "2.1.1",
 	"description": "Like `fs.promise.readdir()`, but sorts the result based on `String#localeCompare()`",
-	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"author": "Watanabe Shinnosuke (https://github.com/shinnn)",
 	"repository": "shinnn/readdir-sorted",
 	"license": "ISC",
 	"scripts": {

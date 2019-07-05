@@ -154,7 +154,7 @@ test('Argument validation', async t => {
 
 	t.equal(
 		(await getError('a', {localeMatcher: '~'})).toString(),
-		'RangeError: Value ~ out of range for collator options property localeMatcher',
+		'RangeError: Value ~ out of range for Intl.Collator options property localeMatcher',
 		'should fail when `localeMatcher` option is not valid.'
 	);
 

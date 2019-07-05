@@ -1,13 +1,12 @@
 'use strict';
 
-const {inspect, promisify} = require('util');
-const {readdir} = require('fs');
+const {inspect} = require('util');
+const {readdir} = require('fs').promises;
 
 const inspectWithKind = require('inspect-with-kind');
 const isPlainObj = require('is-plain-obj');
 
 const PATH_ERROR = 'Expected a valid directory path';
-const promisifiedReaddir = promisify(readdir);
 
 module.exports = async function readdirSorted(...args) {
 	const argLen = args.length;
@@ -123,7 +122,7 @@ module.exports = async function readdirSorted(...args) {
 	// validate options in advance
 	''.localeCompare('', locales, sortOptions);
 
-	const arr = await promisifiedReaddir(dir, {encoding, withFileTypes});
+	const arr = await readdir(dir, {encoding, withFileTypes});
 
 	if (withFileTypes) {
 		if (encoding === 'buffer') {
