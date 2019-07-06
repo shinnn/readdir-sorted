@@ -1,6 +1,6 @@
 {
 	"name": "readdir-sorted",
-	"version": "2.1.1",
+	"version": "3.0.0",
 	"description": "Like `fs.promise.readdir()`, but sorts the result based on `String#localeCompare()`",
 	"author": "Watanabe Shinnosuke (https://github.com/shinnn)",
 	"repository": "shinnn/readdir-sorted",
